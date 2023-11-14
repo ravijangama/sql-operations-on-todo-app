@@ -110,7 +110,9 @@ app.put("/todos/:todoId/", async (request, response) => {
           UPDATE 
               todo
           SET
-            status="${status}"`;
+            status="${status}"
+          WHERE 
+             id=${todoId};`;
     await db.run(updateQuery);
     response.send("Status Updated");
   } else if (priority !== undefined) {
@@ -118,7 +120,9 @@ app.put("/todos/:todoId/", async (request, response) => {
           UPDATE 
               todo
           SET
-            priority="${priority}"`;
+            priority="${priority}"
+          WHERE 
+             id=${todoId};`;
     await db.run(updateQuery);
     response.send("Priority Updated");
   } else if (todo !== undefined) {
@@ -126,7 +130,9 @@ app.put("/todos/:todoId/", async (request, response) => {
           UPDATE 
               todo
           SET
-            todo="${todo}"`;
+            todo="${todo}"
+          WHERE 
+             id=${todoId};`;
     await db.run(updateQuery);
     response.send("Todo Updated");
   }
