@@ -21,7 +21,7 @@ const initializeDBAndServer = async () => {
 initializeDBAndServer();
 //GET TODO API 1
 app.get("/todos/", async (request, response) => {
-  const { status, priority, search__q = "" } = request.query;
+  const { status, priority, search_q = "" } = request.query;
   if (status !== undefined) {
     const getTodoQuery = `
     SELECT 
