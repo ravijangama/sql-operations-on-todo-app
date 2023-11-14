@@ -96,6 +96,40 @@ app.post("/todos/", async (request, response) => {
 //Update Todo API 4
 app.put("/todos/:todoId/", async (request, response) => {
   const { todoId } = request.params;
+  const getTodoQuery = `
+    SELECT 
+         * 
+    FROM 
+        todo
+    WHERE 
+        id=${todoId}; `;
+  const todoList = await db.get(getTodoQuery);
+  const { status, priority, todo } = request.body;
+  if (status !== undefined) {
+    const updateQuery = `
+          UPDATE 
+              todo
+          SET
+            status="${status}"`;
+    await db.run(updateQuery);
+    response.send("Status Updated");
+  } else if (priority !== undefined) {
+    const updateQuery = `
+          UPDATE 
+              todo
+          SET
+            priority="${priority}"`;
+    await db.run(updateQuery);
+    response.send("Priority Updated");
+  } else if (todo !== undefined) {
+    const updateQuery = `
+          UPDATE 
+              todo
+          SET
+            todo="${todo}"`;
+    await db.run(updateQuery);
+    response.send("Todo Updated");
+  }
 });
 //Delete Todo API 5
 app.delete("/todos/:todoId", async (request, response) => {
